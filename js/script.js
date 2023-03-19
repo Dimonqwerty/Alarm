@@ -11,26 +11,27 @@ timeForm.addEventListener("submit", function (e) {
         timeForm.classList.add("border-danger")
         timeForm.classList.add("border")
     }
+    else {
+        const alarmTime = new Date()
+        alarmTime.setHours(hours)
+        alarmTime.setMinutes(minutes)
+        alarmTime.setSeconds(seconds)
 
-    const alarmTime = new Date()
-    alarmTime.setHours(hours)
-    alarmTime.setMinutes(minutes)
-    alarmTime.setSeconds(seconds)
+        const nowTime = new Date()
 
-    const nowTime = new Date()
+        if (alarmTime < nowTime) {
+            alarmTime.setDate(alarmTime.getDate() + 1)
+        }
 
-    if (alarmTime < nowTime) {
-        alarmTime.setDate(alarmTime.getDate() + 1)
+        const timeUntilAlarm = alarmTime - nowTime
+
+        setTimeout(function () {
+            console.log("Будильник")
+            audio.play()
+        }, timeUntilAlarm)
+
+        hours = ` `
+        minutes = ` `
+        seconds = ` `
     }
-
-    const timeUntilAlarm = alarmTime - nowTime
-
-    setTimeout(function () {
-        console.log("Будильник")
-        audio.play()
-    }, timeUntilAlarm)
-
-    hours = ` `
-    minutes = ` `
-    seconds = ` `
-});
+})
